@@ -13,14 +13,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Стартовая страница
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+// Страница приветствия пользователя
 Route::get('/hello/{name}', static function (string $name): string {
     return "Hello, {$name}";
 });
 
-Route::get('/About', function (): string {
-    return "About";
+// Страница с информацией о проекте
+Route::get('/AboutProject', function ():string {
+    return "Это учебный проект на курсе {Laravel. Глубокое погружение} ";
+});
+
+// Страница для вывода одной и нескольких новостей.
+Route::get('/ShowNews/{ID}', function (int $ID):string {
+    $news = array(
+        "1" => "Новость №1",
+        "2" => "Новость вторая",
+        "3" => "третья новость"
+    );    
+    return "Это {$news[$ID]}";
 });
