@@ -20,3 +20,7 @@ Route::get('/', function () {
 Route::get('/hello/{name}', static function (string $name): string {
     return "Hello, {$name}";
 });
+
+Route::get('/About', function (): string {
+    return "About";
+});
