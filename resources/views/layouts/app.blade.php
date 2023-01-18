@@ -9,61 +9,32 @@
 <body>
 	<div class="content">
 		<div class="header">
+			<img src="./img/ico.png" class="header-ico">			
 			<div class="header-label">
-				Мой блог
+				Самый лучший способ чему-то научиться - учить других.
 			</div>
 			<div class="header-nav">
 				<div class="header-nav-item-active">
-					<a>Главная
+					<a>Главная</a>
 				</div>
 				<div class="header-nav-item">
-					<a>О проекте
+					<a>О проекте</a>
 				</div>
 				<div class="header-nav-item">
-					<a>Контакты
+					<a>Контакты</a>
 				</div>		
 				<div class="header-nav-item">
-					<a>Для любопытных
+					<a>Для любопытных</a>
 				</div>						
 			</div>
 		</div>
 		<div class="content-box">
-			<div class="content-box-post">
-				<div class="content-box-post-titul">
-					<div class="content-box-post-datablock">
-						<div class="content-box-post-datablock-number">13</div>
-						<div class="content-box-post-datablock-mount">jan</div>
-					</div>
-					<div class="content-box-post-titul-text">Это заголовок новости</div>
-					<div class="content-box-post-titul-meta">Опубликовано 13 янваяря 2022 года</div>
-				</div>
-				<div class="content-box-post-text">
-					@yield ('post-text')
-				<hr>
-				</div>	
-			</div>
-
-			<div class="content-box-post">
-				<div class="content-box-post-titul">
-					<div class="content-box-post-datablock">
-						<div class="content-box-post-datablock-number">13</div>
-						<div class="content-box-post-datablock-mount">jan</div>
-					</div>
-					<div class="content-box-post-titul-text">Это заголовок новости</div>
-					<div class="content-box-post-titul-meta">Опубликовано 13 янваяря 2022 года</div>
-				</div>
-				<div class="content-box-post-text">
-					@yield ('post-text')
-				<hr>
-				</div>	
-			</div>
+			@yield ('news')
 		</div>
-
 		<div class="content-nav">
 			<div class="content-nav-about">
 				<div class="content-nav-about-title">
-					<a>Обо мне	
-					
+					<a>Обо мне</a>
 				</div>
 				<hr>
 				<div class="content-nav-about-photo">
@@ -73,7 +44,6 @@
 				<hr>	
 			</div>
 		</div>
-
 	</div>
 </body>
 </html>
