@@ -12,14 +12,16 @@
 	background-color: rgb(45, 56, 68);
 	min-width: 900px;
 	max-width: 1200px;
-
-
 }
+
 .header{
 	display: block;
 	height: 180px;
 	background-color: rgb(34, 42, 51);
+	min-width: 900px;
+	max-width: 1200px;
 }
+
 .header-label{
 	display: block;
 	padding-left: 30px;
@@ -34,6 +36,7 @@
 }
 
 .header-nav{
+	display: block;
 	margin-top: 35px;
 	float:right;
 	width: 340px;
@@ -60,6 +63,7 @@
 	padding-top: 3px;
 }
 .content-nav{
+	display: block;
 	float: right;
 	height: 800px;
 	width: 340px;

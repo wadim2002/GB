@@ -45,3 +45,8 @@ Route::group([],static function(){
     Route::get('/news', [NewsController::class, 'index']);
     Route::get('/news/{id}/show', [NewsController::class, 'show'])->where('id', '\d+')->name('news.Show');
 });
+
+// Админка
+Route::get('/AdminPanel', function () {
+    return view('AdminPanel');
+});

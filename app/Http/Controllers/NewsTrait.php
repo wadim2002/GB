@@ -32,7 +32,7 @@ trait NewsTrait
             'id' => $id,
             'category' => $this->getCategory($id),
             'title' => \fake()->jobtitle(),
-            'description' => \fake()->text(100),
+            'description' => \fake()->text(1000),
             'autor' => \fake()->username(),
             'create_at' => \now()->format('d-m-Y H:i'),
         ];
