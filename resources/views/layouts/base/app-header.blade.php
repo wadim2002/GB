@@ -1,5 +1,5 @@
 		<div class="header">
-			<img src="{{ asset('img/ico.png') }}" class="header-ico">			
+			<img src="{{ asset('assets/img/ico.png') }}" class="header-ico">			
 			<div class="header-label">
 				Самый лучший способ чему-то научиться - учить других.
 			</div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View as View;
 
 class NewsController extends Controller
 {
@@ -12,9 +13,10 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index():View
     {
-        //
+        //return "Это админка для Новостей";
+        return \view('admin.news.index');
     }
 
     /**
@@ -22,9 +24,10 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create():View
     {
         //
+        return \view('admin.news.create');
     }
 
     /**
@@ -35,7 +38,12 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //return 'Проверка отправки формы с новостью';
+        //dd($request->input('title'));
+        $myJson = json_encode(response()->json($request->all()));
+        \file_put_contents('Datafile.json', $myJson);
+        return response()->json(['title' => $request->input('title')]);
+
     }
 
     /**

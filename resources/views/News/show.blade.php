@@ -13,7 +13,6 @@
 				<div class="content-box-post-text">
                     {{$news['description']}}
 					<hr>
-                    <a href="<?=route('news.Show', ['id' => $news['id']])?>" class="content-box-post-link">Читать далее ...</a>
                 </div>
         </div>
 @endsection

@@ -5,7 +5,7 @@
 				</div>
 				<hr>
 				<div class="content-nav-about-photo">
-					<img src="{{ asset('img/ava.jpg') }}">
+					<img src="{{ URL::asset('assets/img/ava.jpg') }}">	
 					<p>Заглушка для текста обо мне
 				</div>
 				<hr>	
