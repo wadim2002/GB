@@ -5,6 +5,7 @@ declare(strict_types=1);
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\enums\NewsStatus;
 
 return new class extends Migration
 {
@@ -13,15 +14,14 @@ return new class extends Migration
      *
      * @return void
      */
-    public function up(): void
+    public function up():void
     {
-        Schema::create('users', static function (Blueprint $table) {
+        Schema::create('news', static function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('title', 255);
+            $table->string('autohor',50)->default('Admin');
+            $table->enum('status',NewsStatus::all());
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down():void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('news');
     }
 };

@@ -37,7 +37,7 @@ class RoutTest extends TestCase
         $response
             ->assertStatus(200)
             ->assertJson([
-                'like' => true,
+                'like' => "this test like text",
             ]);
     }
 }
