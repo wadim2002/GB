@@ -7,8 +7,18 @@
             </div>
 </div>
 <div>
-    <form method="post" action="{{ route('news.store')}}">
+    <form method="post" action="{{route('news.store')}}">
         @csrf
+        <div class="form-group">
+            <label for="category_ids">Категория</label>
+            <select class="form-control" name="category_ids[]" id="category_ids" multiple>
+            <option value="0">--Выбрать--</option>
+            @foreach($categories as $category)
+                <option value="{{ $category->id }}">{{$category->title}}</option>
+            @endforeach
+            </select>
+
+        </div>
         <div class="form-group">
             <label for="title">Заголовок</label>
             <input type="text" id="title" name="title" class="form-control" required>
@@ -17,8 +27,23 @@
             <label for="author">Автор</label>
             <input type="text" id="author" name="author" class="form-control" required>
         </div>
+        
         <div class="form-group">
-            <label for="title">Описание</label>
+            <label for="status">Статус</label>
+            <select class="form-control" name="status" id="status">
+            <option value="0">--Выбрать--</option>
+            @foreach($statuses as $status)
+                <option>{{$status}}</option>
+            @endforeach
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="image">Изображение</label>
+            <input type="file" id="image" name="image" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="description">Описание</label>
             <textarea id="description" name="description" class="form-control" required>{{ old('description')}}</textarea>
         </div>
         <br>

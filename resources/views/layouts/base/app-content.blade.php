@@ -1,5 +1,5 @@
 <div class="content">
 	<div class="content-box">
-		@yield ('news')
+	@yield ('news')
 	</div>		
 </div>

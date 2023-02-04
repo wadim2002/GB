@@ -1,3 +1,6 @@
+a{
+	text-decoration: none;
+}
 .header-ico {
 	padding-left: 10px;
 	padding-top: 40px;
@@ -52,6 +55,22 @@
 	padding-left: 10px;
 	padding-top: 3px;
 }
+.header-nav-item:hover {
+	height: 22px;
+	margin-top: 1px;
+	width: 280px;
+	float: left;
+	background-color: rgb(45, 56, 68);
+	color: rgb(160, 162, 159);
+	padding-left: 10px;
+	padding-top: 3px;
+}
+
+
+.header-nav-item a{
+	color: rgb(95, 100, 102);
+}
+
 .header-nav-item-active{
 	height: 22px;
 	margin-top: 1px;
@@ -77,6 +96,14 @@
 	width: 83%;
 	size: 1%;
 }
+.content-nav-about p{
+	margin-left: 2px;
+	float: left;
+	width: 300px;
+	color: rgb(135, 139, 139);
+	font: sans-serif;
+	font-size: 15px;
+}
 .content-nav-about-photo {
 	display: block;
 	height: 100px;
@@ -89,15 +116,7 @@
 	width: 100px;
 	height: 100px;
 }
-.content-nav-about-photo p{
-	margin-left: 5px;
-	float: left;
-	width: 95px;
-	height: 100px;
-	color: rgb(135, 139, 139);
-	font: sans-serif;
-	font-size: 15px;
-}
+
 .content-nav-about-title{
 	height: 25px;
 	padding-top: 35px;
@@ -108,7 +127,7 @@
 }
 .content-box{
 	display: inline-block;
-	height: 930px;
+	height: 1050px;
 	width: 600px;
 	margin-left: 60px;
 	margin-top: 20px;
@@ -179,14 +198,14 @@
 	margin-left: 20px;
 	display: inline-block;
 	float: left;
-	width: 350px;
+	width: 500px;
 	height: 18px;
 	font-size: 15px;
 }
 
 .content-box-post-titul{
 	border-radius: 5px;
-	max-width: 520px;
+	max-width: 560px;
 	height: 70px;
 	display: inline-block;
 	background-image: linear-gradient(to top, rgb(152, 163, 171), rgb(128, 135, 142), rgb(45, 56, 68) 70%);
@@ -206,3 +225,62 @@
 	font-size: 20px;
 	z-index:99999;
 }
+/*.relative svg
+{
+	display: inline;
+	width: 20px;
+	height: 20px;
+}*/
+/*
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #f0ad4e !important;
+    border-color: #f0ad4e !important;
+}*/
+/*.pagination > li > a
+{
+background-color: white;
+color: purple;
+}
+
+
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+color: purple;
+background-color: #eee;
+border-color: #ddd;
+}
+
+
+
+.pagination > .active > a
+{
+color: white;
+background-color: purple;
+border: solid 1px purple;
+}
+
+
+
+.pagination > .active > a:hover
+{
+background-color: purple;
+border: solid 1px purple;
+}*/
+/*.pagination>.active>a, 
+.pagination>.active>a:focus,
+ .pagination>.active>a:hover, 
+.pagination>.active>span,
+ .pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #b7339d;
+    border-color: #337ab7}*/

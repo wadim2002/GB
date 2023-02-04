@@ -8,7 +8,7 @@
 					<a>Главная</a>
 				</div>
 				<div class="header-nav-item">
-					<a>О проекте</a>
+					<a href="<?=route('about')?>">О проекте</a>
 				</div>
 				<div class="header-nav-item">
 					<a>Контакты</a>

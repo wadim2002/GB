@@ -6,8 +6,9 @@
 				<hr>
 				<div class="content-nav-about-photo">
 					<img src="{{ URL::asset('assets/img/ava.jpg') }}">	
-					<p>Заглушка для текста обо мне
+					
 				</div>
+				<p> Студент курса по Laravel. Руководитель проектов, архитектор информационных систем.
 				<hr>	
 			</div>
 		</div>

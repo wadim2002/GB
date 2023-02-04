@@ -48,8 +48,9 @@ Route::get('/ShowNews/{ID}', function (int $ID):string {
 
 // Страницы с подключенным контроллером
 Route::group([],static function(){
-    Route::get('/news', [NewsController::class, 'index']);
+    Route::get('/news', [NewsController::class, 'index'])->name('news');
     Route::get('/news/{id}/show', [NewsController::class, 'show'])->where('id', '\d+')->name('news.Show');
+    Route::get('/news/create', [NewsController::class, 'store'])->name('news.store');
 });
 
 // Админка
@@ -59,15 +60,18 @@ Route::get('/AdminPanel', function () {
 Route::group(['prefix'=>'admin'], static function(){
     Route::get('/', AdminIndexController::class)->name('admin.index');
     Route::resource('categories' , AdminCategoryController::class);
+    //Route::get('/news/create' , [AdminNewsController::class,'create'])->name('admin.news.create');
     Route::resource('news' , AdminNewsController::class);
-    Route::get('sign' , AdminSignController::class)->name('admin.sign');;
-    Route::post('lk' , LKController::class)->name('lk');;
+    Route::get('news' , [AdminNewsController::class,'index'])->name('admin.news');
+    Route::get('news/update/{id}', [AdminNewsController::class,'update'])->where('id', '\d+')->name('admin.news.update');
+    Route::get('sign' , AdminSignController::class)->name('admin.sign');
+    Route::post('lk' , LKController::class)->name('lk');
 });
 
 // Роуты для отзывов
 Route::group(['prefix'=>'like'], static function(){
     // Страница с информацией о проекте
-    Route::get('/AboutProject', function ():string {return "Это учебный проект на курсе {Laravel. Глубокое погружение} ";});
+    Route::get('/AboutProject', function ():string {return "Это учебный проект на курсе {Laravel. Глубокое погружение} ";})->name('about');
     Route::get('send-like' , LikeController::class)->name('like');;
     Route::post('like-text' , HisorylikeController::class)->name('history');;
 });
