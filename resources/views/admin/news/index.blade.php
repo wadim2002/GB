@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap alifn-items-center pb-2 mb-3 border-bottom">    
 <h1 class="h2">Реестр новостей</h1>
     <div class="btn-toolbar md-2 mb-md-0">
@@ -25,10 +26,10 @@
               <td>{{$m->id}}</td>
               <td>{{$m->title}}</td>
               <td>{{$m->categories->map(fn($item) => $item->title)->implode(', ')}}</td>
-              <td>{{$m->autohor}}</td>
+              <td>{{$m->author}}</td>
               <td>{{$m->status}}</td>
               <td>{{$m->description}}</td>
-              <td><a href="{{route('admin.news.update', ['id' => $m->id])}}">Изменить</a></td>
+              <td><a href="{{route('news.edit', ['news' => $m])}}">Изменить</a></td>
             </tr>
         <?php endforeach ?>
           </tbody>

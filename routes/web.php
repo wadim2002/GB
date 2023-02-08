@@ -58,12 +58,12 @@ Route::get('/AdminPanel', function () {
     return view('AdminPanel');
 });
 Route::group(['prefix'=>'admin'], static function(){
-    Route::get('/', AdminIndexController::class)->name('admin.index');
+    //Route::get('/', AdminIndexController::class)->name('admin.index');
     Route::resource('categories' , AdminCategoryController::class);
     //Route::get('/news/create' , [AdminNewsController::class,'create'])->name('admin.news.create');
     Route::resource('news' , AdminNewsController::class);
-    Route::get('news' , [AdminNewsController::class,'index'])->name('admin.news');
-    Route::get('news/update/{id}', [AdminNewsController::class,'update'])->where('id', '\d+')->name('admin.news.update');
+    //Route::get('news' , [AdminNewsController::class,'index'])->name('admin.news');
+    //Route::get('news/update/', [AdminNewsController::class,'update'])->name('admin.news.update');
     Route::get('sign' , AdminSignController::class)->name('admin.sign');
     Route::post('lk' , LKController::class)->name('lk');
 });

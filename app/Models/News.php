@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\BelongToMany;
-
+use Illuminate\Support\Collections;
 
 class News extends Model
 {
@@ -16,21 +16,18 @@ class News extends Model
 
     protected $table = 'news';
 
-    protected $fillabe = [
-
+    protected $fillable = array(
         'title',
-        'autohor',
+        'author',
         'status',
         'description',
-        'image'
-
-    ];
+        'image',
+    );
 
     public function getNews():array
     {
         $data = [];
         $data = DB::select("select * from {$this->table}");
-        //dd($data);
         return $data;
     }
 
@@ -47,8 +44,4 @@ class News extends Model
     protected $casts = [
         'categories_id' => 'array',
     ];
-
-
-
-
 }

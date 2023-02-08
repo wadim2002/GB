@@ -9,10 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 abstract class QueryBuilder
 {
-    //abstract function setModel():void;
     abstract function getAll():Collection;
 }
-
-
 
 ?>

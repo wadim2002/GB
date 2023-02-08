@@ -9,7 +9,9 @@ use App\QueryBuilders\CategoriesQueryBuilder;
 use App\enums\NewsStatus;
 use App\Models\News;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Enum;
 use App\QueryBuilders\NewsQueryBuilder;
+use App\Http\Requests\News\CreateRequest;
 
 class NewsController extends Controller
 {
@@ -20,14 +22,18 @@ class NewsController extends Controller
      */
     public function index(NewsQueryBuilder $newsQueryBuilder):View
     {
+        
         // ORM
+        //$newsList = News::all();
+        //$newsList = News::where('author', 'ostreich')->where('status', 'draft')->get();
+        //dd($newsList);
         //$NewsList = $newsQueryBuilder->getNewsByStatus('draft');
         //dd($newsQueryBuilder->getNewsWithPagination());
         // С пагинацией
-        $NewsList = $newsQueryBuilder->getNewsWithPagination();
+        $newsList = $newsQueryBuilder->getNewsWithPagination();
         
         // С пагинацией
-        return \view('admin.news.index', ['news' => $NewsList]);
+        return \view('admin.news.index', ['news' => $newsList]);
 
     }
 
@@ -38,7 +44,6 @@ class NewsController extends Controller
      */
     public function create(CategoriesQueryBuilder $CategoriesQueryBuilder):View
     {
-        //dd($CategoriesQueryBuilder->getAll());
         return \view('admin.news.create',
         ['categories' => $CategoriesQueryBuilder->getAll(),
         'statuses' => NewsStatus::all()
@@ -51,27 +56,12 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request):RedirectResponse
+    public function store(CreateRequest $request):RedirectResponse
     {
-        //return 'Проверка отправки формы с новостью' - сохраняет в json;
-        //$myJson = json_encode(response()->json($request->all()));
-        //\file_put_contents('Datafile.json', $myJson);
-        //return response()->json(['title' => $request->input('title')]);
-        
-        //$request->validate([
-        //    'title'=>'required'
-        //]);
-        $news = new News();
-        $news->title = $request->input('title');
-        $news->description = $request->input('description');
-        $news->autohor = $request->input('author');
-        $news->image = $request->input('image');
-
-        //$news = News::create($request);
-        //dd($news);
+        $news = new News($request->except('_token'));
 
         if ($news->save()){
-            return \redirect()->route('admin.news');
+            return \redirect('admin/news');
         }
         return \back()->with('error', 'не удалось добавить новость');
     }
@@ -88,27 +78,39 @@ class NewsController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  News $news
+     * @param  CategoriesQueryBuilder $CategoriesQueryBuilder
+     * @return View
      */
-    public function edit($id)
+    public function edit(News $news, CategoriesQueryBuilder $CategoriesQueryBuilder):View
     {
-        //
+        return \view('admin.news.edit',
+        ['news' => $news,
+        'categories' => $CategoriesQueryBuilder->getAll(),
+        'statuses' => NewsStatus::all()
+         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  News $news
+     * @return Illuminate\Http\Response;
      */
-    public function update(Request $request,int $id,CategoriesQueryBuilder $CategoriesQueryBuilder)
+    public function update(Request $request,News $news):RedirectResponse
     {
-        $news = new News();
-        $news = $news->getNewsByID($id);
-        return \view('admin.news.edit', ['news' => $news, 'categories' => $CategoriesQueryBuilder->getAll(), 'statuses' => NewsStatus::all()]);
+        
+        
+        $news = $news->fill($request->except('_token', 'category_ids'));
+        if ($news->save()){
+            $news->categories()->sync((array) $request->input('category_ids'));
+            return redirect('admin/news')->with('success', 'Новоcть успешно обновлена');
+        }
+        return \back()->with('error','Не удалось обновить запись');
+        
+        //$news = $news->getNewsByID($id);
+        //return \view('admin.news.edit', ['news' => $news, 'categories' => $CategoriesQueryBuilder->getAll(), 'statuses' => NewsStatus::all()]);
     }
 
     /**

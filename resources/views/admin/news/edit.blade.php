@@ -7,25 +7,26 @@
             </div>
 </div>
 <div>
-    <form method="post" action="{{route('news.store')}}">
+    <form method="post" action="{{route('news.update', ['news' => $news])}}">
         @csrf
+        @method('put')
         <div class="form-group">
             <label for="category_ids">Категория</label>
             <select class="form-control" name="category_ids[]" id="category_ids" multiple>
             <option value="0">--Выбрать--</option>
             @foreach($categories as $category)
-                <option value="{{ $category->id }}">{{$category->title}}</option>
+                <option @if(in_array($category->id, $news->categories->pluck('id')->toArray()))) selected @endif value="{{ $category->id }}">{{$category->title}}</option>
             @endforeach
             </select>
 
         </div>
         <div class="form-group">
             <label for="title">Заголовок</label>
-            <input type="text" id="title" name="title" class="form-control" value="{{$news->title}}" required>
+            <input type="text" id="title" name="title" value="{{ $news->title}}" class="form-control" value="{{$news->title}}" required>
         </div>
         <div class="form-group">
             <label for="author">Автор</label>
-            <input type="text" id="author" name="author" class="form-control" value="{{$news->autohor}}" required >
+            <input type="text" id="author" name="author" value="{{ $news->author}}" class="form-control" required >
         </div>
         
         <div class="form-group">
@@ -33,7 +34,7 @@
             <select class="form-control" name="status" id="status">
             <option selected value="">{{$news->status}}</option>
             @foreach($statuses as $status)
-                <option> {{$status}}</option>
+                <option @if ($news->status === $status) selected @endif> {{$status}}</option>
             @endforeach
             </select>
         </div>
@@ -44,7 +45,7 @@
         
         <div class="form-group">
             <label for="description">Описание</label>
-            <textarea id="description" name="description" class="form-control" value="{{$news->description}}" required></textarea>
+            <textarea id="description" name="description" class="form-control" value="{{$news->description}}" required>{{$news->description}}</textarea>
         </div>
         <br>
 
