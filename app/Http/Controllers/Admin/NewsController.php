@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View as View;
 use App\QueryBuilders\CategoriesQueryBuilder;
 use App\enums\NewsStatus;
 use App\Models\News;
+use App\Models\Sourses;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Enum;
 use App\QueryBuilders\NewsQueryBuilder;
@@ -58,9 +59,14 @@ class NewsController extends Controller
      */
     public function store(CreateRequest $request):RedirectResponse
     {
+                
         $news = new News($request->except('_token'));
 
         if ($news->save()){
+            $sourses = new Sourses(['url' => $request->input('sours'), 'id_news' => $news->id]);
+            $news->sourses()->save($sourses);
+
+            $news->categories()->sync((array) $request->input('category_ids'));
             return \redirect('admin/news');
         }
         return \back()->with('error', 'не удалось добавить новость');
@@ -98,19 +104,46 @@ class NewsController extends Controller
      * @param  News $news
      * @return Illuminate\Http\Response;
      */
-    public function update(Request $request,News $news):RedirectResponse
+    public function update(Request $request,News $news, Sourses $sourses):RedirectResponse
     {
+        //$sourses = $sourses(['url' => $request->input('sours'), 'id_news' => $request->id]);
+
+        //$post = App\Post::find(1);
+
+        //$post->comments()->save($comment);
         
+        //dd($news->sourses);
+
+        if ($news->sourses !== null){
+            $news->sourses['url'] = $request->input('sours');
+            $news->sourses()->save($news->sourses);
+        }
+        else{
+            $sourses = new Sourses(['url' => $request->input('sours'), 'id_news' => $request->id]);
+            $news->sourses()->save($sourses);
+            //dd($sourses);
+        }
         
+
+        //dd($news->sourses['url']);
+        //$news->sourses()->save();
+        //dd($news->sourses['url']);
+	    
+        
+        //$news->sourses()->save(["url"=>$request->input('sours')]);
+        //dd($request->input('sours'));
         $news = $news->fill($request->except('_token', 'category_ids'));
         if ($news->save()){
+            //$news->sourses()->save();
             $news->categories()->sync((array) $request->input('category_ids'));
+            //$news->sourses($request->except('updated_at', 'created_at'))->save($sourses);
+            
+            //
+            
             return redirect('admin/news')->with('success', 'Новоcть успешно обновлена');
         }
         return \back()->with('error','Не удалось обновить запись');
         
-        //$news = $news->getNewsByID($id);
-        //return \view('admin.news.edit', ['news' => $news, 'categories' => $CategoriesQueryBuilder->getAll(), 'statuses' => NewsStatus::all()]);
     }
 
     /**
@@ -119,8 +152,12 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(News $news)
     {
-        //
+        //User::destroy(5);
+        // $news = News::find(5);
+        // $news->delete();
+        // dd($news);
+        //return redirect('admin/news');
     }
 }

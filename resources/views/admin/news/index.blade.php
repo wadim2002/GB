@@ -16,6 +16,7 @@
               <th scope="col">Категории</th>
               <th scope="col">Автор</th>
               <th scope="col">Статус</th>
+              <th scope="col">Источник</th>
               <th scope="col">Описание</th>
               <th scope="col">Редактировать</th>
             </tr>
@@ -28,8 +29,9 @@
               <td>{{$m->categories->map(fn($item) => $item->title)->implode(', ')}}</td>
               <td>{{$m->author}}</td>
               <td>{{$m->status}}</td>
+              <td>@if ($m->sourses != []) {{ $m->sourses['url'] }} @endif</td>
               <td>{{$m->description}}</td>
-              <td><a href="{{route('news.edit', ['news' => $m])}}">Изменить</a></td>
+              <td><a href="{{route('news.edit', ['news' => $m])}}">Изменить</a><br><a href="{{route('news.destroy', ['news' => $m])}}">Удалить</a></td>
             </tr>
         <?php endforeach ?>
           </tbody>

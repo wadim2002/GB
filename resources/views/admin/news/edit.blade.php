@@ -42,7 +42,13 @@
             <label for="image">Изображение</label>
             <input type="file" id="image" name="image" class="form-control">
         </div>
-        
+
+        <div class="form-group">
+            <label for="sours">Источник инфромации</label>
+            <textarea id="sours" name="sours" class="form-control" value="@if ($news->sourses != []) {{ $news->sourses['url'] }} @endif" required>@if ($news->sourses != []) {{ $news->sourses['url'] }} @endif</textarea>
+        </div>
+
+
         <div class="form-group">
             <label for="description">Описание</label>
             <textarea id="description" name="description" class="form-control" value="{{$news->description}}" required>{{$news->description}}</textarea>

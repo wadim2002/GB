@@ -27,12 +27,13 @@ class CreateRequest extends FormRequest
     {
         return [
             'title'=>['required', 'min:5', 'max:200'],
-             'category_id'=>['required', 'array'],
+             //'category_id'=>['required', 'array'],
              //'category_id.id'=>['exists:categories,id'],
              'author'=>['nullable', 'string', 'min:5', 'max:50'],
              'image'=>['sometimes'],
-             'description' => ['nullable', 'string'],
+             'description' => ['nullable', 'string', 'min:3'],
              'status'=>['required', new Enum(NewsStatus::class)],
+             'sours'=>['nullable', 'string', 'min:5', 'max:50'],
         ];
     }
 }

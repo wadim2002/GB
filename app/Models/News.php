@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\BelongToMany;
+use Illuminate\Database\Eloquent\Relations\hasOne;
+//use App\Models\BelongToMany;
+//use App\Models\hasOne;
 use Illuminate\Support\Collections;
 
 class News extends Model
@@ -39,6 +41,11 @@ class News extends Model
     public function categories(): BelongsToMany
     {
         return $this->belongsToMany(Category::class, 'categories_has_news','news_id','categories_id','id','id');
+    }
+
+    public function sourses(): hasOne
+    {
+        return $this->hasOne(Sourses::class);
     }
 
     protected $casts = [
