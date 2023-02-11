@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -40,5 +41,19 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
+
+    public static function getUsers():array
+    {
+        $data = [];
+        $data = DB::select("select * from users");
+        return $data;
+    }
+
+    public static function getUserByID(int $id):mixed
+    {
+        $data = DB::select("select * from users where id= :id", ['id'=> $id]);
+        return $data;
+    }
 }

@@ -11,6 +11,9 @@ use App\Http\Controllers\LKController as LKController;
 use App\Http\Controllers\LikeController as LikeController;
 use App\Http\Controllers\HisorylikeController as HisorylikeController;
 
+use App\Http\Controllers\Account\IndexController as AccountController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\admin\UserController as UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,26 +27,12 @@ use App\Http\Controllers\HisorylikeController as HisorylikeController;
 
 // Стартовая страница
 Route::get('/', function () {
-    //dd(app());
     return view('welcome');
 });
-
 
 // Страница приветствия пользователя
 Route::get('/hello/{name}', static function (string $name): string {
     return "Hello, {$name}";
-});
-
-
-
-// Страница для вывода одной и нескольких новостей.
-Route::get('/ShowNews/{ID}', function (int $ID):string {
-    $news = array(
-        "1" => "Новость №1",
-        "2" => "Новость вторая",
-        "3" => "третья новость"
-    );    
-    return "Это {$news[$ID]}";
 });
 
 // Страницы с подключенным контроллером
@@ -53,21 +42,24 @@ Route::group([],static function(){
     Route::get('/news/create', [NewsController::class, 'store'])->name('news.store');
 });
 
-// Админка
-Route::get('/AdminPanel', function () {
-    return view('AdminPanel');
-});
-Route::group(['prefix'=>'admin'], static function(){
-    //Route::get('/', AdminIndexController::class)->name('admin.index');
-    Route::resource('categories' , AdminCategoryController::class);
-    //Route::get('/news/create' , [AdminNewsController::class,'create'])->name('admin.news.create');
-    Route::resource('news' , AdminNewsController::class);
-    //Route::get('news' , [AdminNewsController::class,'index'])->name('admin.news');
-    //Route::get('news/update/', [AdminNewsController::class,'update'])->name('admin.news.update');
-    Route::get('sign' , AdminSignController::class)->name('admin.sign');
-    Route::post('lk' , LKController::class)->name('lk');
-});
 
+Route::group(['middleware'=>'auth'],static function (){
+    Route::get('/logout', [LoginController::class, 'logout'])->name('account.logout');
+    Route::get('/account', AccountController::class)->name('account');
+    // Admin group
+    Route::group(['prefix'=>'admin', 'middleware'=>'is.admin'], static function(){
+        Route::get('/', AdminIndexController::class)->name('admin.index');
+        Route::resource('categories' , AdminCategoryController::class);
+        //Route::get('/news/create' , [AdminNewsController::class,'create'])->name('admin.news.create');
+        Route::resource('news' , AdminNewsController::class);
+        //Route::get('news' , [AdminNewsController::class,'index'])->name('admin.news');
+        //Route::get('news/update/', [AdminNewsController::class,'update'])->name('admin.news.update');
+        Route::get('sign' , AdminSignController::class)->name('admin.sign');
+        Route::post('lk' , LKController::class)->name('lk');
+        Route::get('users' , [UserController::class, 'index'])->name('admin.users');
+        Route::get('changeUserRole' , [UserController::class, 'changeRoleInAdmin'])->name('user.changeRoleInAdmin');
+    });
+});
 // Роуты для отзывов
 Route::group(['prefix'=>'like'], static function(){
     // Страница с информацией о проекте
@@ -75,3 +67,7 @@ Route::group(['prefix'=>'like'], static function(){
     Route::get('send-like' , LikeController::class)->name('like');;
     Route::post('like-text' , HisorylikeController::class)->name('history');;
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
